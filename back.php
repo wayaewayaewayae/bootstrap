@@ -1,9 +1,14 @@
 <?php 
 session_start();
     if (isset($_SESSION['log'])) {
-        # code...
-    
+    if (isset($_POST['tbyr'])) {
+        $total = $_POST['total'];
+        $byr = $_POST['byr'];
+        
+        $kembali = $byr-$total; 
+    }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +16,7 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css"/>
-    <title>Document</title>
+    <title>Kembalian</title>
 </head>
 <body>
     <header>
@@ -24,10 +29,10 @@ session_start();
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="index.php">Home </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="ul1.php"> Data </a>
+                        <a class="nav-link" href="ul1.php"> Data <span class="sr-only">(current)</span></a>
                     </li>                
                 </ul>
                 <form class="form-inline my-2 my-lg-0" action="logout.php" method="post">
@@ -35,25 +40,39 @@ session_start();
                 </form>
             </div>
         </nav>
-    </header>
-<br><br><br><br>
+    </header><br><br>
     <div class="container align-items-center">
-    
+
             <div class="card">
                 <div class="card-body">
-                <div class="card-header"><center><h2><marquee>Selamat Datang >,<</marquee></h2></center></div>
-                <div class="card-footer"><center><h4>Di Project Pembelian Barang</h4></center></div>
+                <div class="card-header"><center><h2>Data Berhasil Di Input >_<</h2></center></div>
+                Uang Anda : Rp. <?php echo $byr; ?><br>
+                Total Bayar : Rp. <?php echo $total; ?><br>
+                Kembalian Uang : Rp. <?php echo $kembali; ?><br>
+                Apakah Anda Ingin Memasukan Data Lagi ?
+                <div class="card-footer"><center>
+                <form action="" method="post">
+                    <div class="form-group">
+                        <input type="submit" value="Ya" name="y" class="btn btn-primary">
+                        <input type="submit" value="Tidak" name="t" class="btn btn-danger">
+                    </div>
+                    
+                </form>
+                </center></div>
+                <?php 
+                    if (isset($_POST['y'])) {
+                        header("location:ul1.php");
+                    } elseif (isset($_POST['t'])) {
+                        echo "Terima Kasih >.<";
+                    }
+                ?>
             </div>
             </div>
         </div>
     </div>
-    
-    <script type="text/javascript" src="assets/js/jquery.min.js"></script>
-    <script type="text/javascript" src="assets/js/bootstrap.bundle.js"></script>
-    <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
 </body>
 </html>
-    <?php } else {
+    <?php }else {
         header("location:login.php");
     }
     
